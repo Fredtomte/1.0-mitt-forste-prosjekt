@@ -1,60 +1,49 @@
 <!DOCTYPE html>
 <html lang="no">
   <head>
+    <meta charset="UTF-8" />
+    <title>Pomodoro‑timer</title>
+
     <style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    margin-top: 60px;
-    background-color: #f5f7fa;
-  }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        margin-top: 60px;
+        background-color: #f5f7fa;
+      }
 
-  h1 {
-    margin-bottom: 20px;
-  }
+      #timer {
+        font-size: 64px;
+        font-weight: bold;
+        margin: 20px 0;
+      }
 
-  label {
-    font-size: 18px;
-  }
+      button {
+        font-size: 16px;
+        padding: 10px 16px;
+        margin: 5px;
+        cursor: pointer;
+      }
 
-  input {
-    width: 60px;
-    font-size: 18px;
-    padding: 4px;
-    margin-left: 6px;
-  }
+      body.arbeid {
+        background-color: #e6f4ea;
+      }
 
-  #timer {
-    font-size: 64px;
-    font-weight: bold;
-    margin: 30px 0;
-  }
-
-  button {
-    font-size: 16px;
-    padding: 10px 18px;
-    margin: 5px;
-    cursor: pointer;
-  }
-</style>
-
+      body.pause {
+        background-color: #e7f0fd;
+      }
+    </style>
   </head>
-<body>
-  <h1>Nedtellingsklokke</h1>
 
-  <label>
-    Antall minutter:
-    <input type="number" id="minutter" value="5" min="1" />
-  </label>
+  <body>
+    <h1 id="modus">Arbeid</h1>
+    <p id="timer">25:00</p>
 
-  <p id="timer">05:00</p>
+    <button onclick="startPomodoro()">Start</button>
+    <button onclick="pausePomodoro()">Pause</button>
+    <button onclick="reset()">Reset</button>
 
-  <button onclick="startNedtelling()">Start</button>
-  <button onclick="pauseNedtelling()">Pause</button>
-  <button onclick="resetNedtelling()">Reset</button>
-
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
 ``

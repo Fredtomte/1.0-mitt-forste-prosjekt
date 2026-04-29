@@ -1,9 +1,12 @@
-let tidIgjen = 0;
-let startTid = 0;
+let arbeidTid = 25 * 60;
+let pauseTid = 5 * 60;
+
+let tidIgjen = arbeidTid;
 let interval = null;
+let modus = "arbeid";
 
 const timerElement = document.getElementById("timer");
-const minutterInput = document.getElementById("minutter");
+const modusElement = document.getElementById("modus");
 
 function oppdaterVisning() {
   const minutter = Math.floor(tidIgjen / 60);
@@ -14,42 +17,41 @@ function oppdaterVisning() {
     ":" +
     String(sekunder).padStart(2, "0");
 
-  if (tidIgjen <= 10) {
-    timerElement.style.color = "red";
-  } else {
-    timerElement.style.color = "black";
-  }
+  modusElement.textContent = modus === "arbeid" ? "Arbeid" : "Pause";
+
+  document.body.className = modus;
 }
 
-function startNedtelling() {
-  if (interval !== null) return;
+function byttModus() {
+  modus = modus === "arbeid" ? "pause" : "arbeid";
+  tidIgjen = modus === "arbeid" ? arbeidTid : pauseTid;
+  oppdaterVisning();
+}
 
-  if (tidIgjen === 0) {
-    startTid = Number(minutterInput.value) * 60;
-    tidIgjen = startTid;
-    oppdaterVisning();
-  }
+function startPomodoro() {
+  if (interval !== null) return;
 
   interval = setInterval(() => {
     if (tidIgjen <= 0) {
-      clearInterval(interval);
-      interval = null;
-      timerElement.textContent = "Tiden er ute!";
-      return;
+      byttModus();
+    } else {
+      tidIgjen--;
     }
-
-    tidIgjen--;
     oppdaterVisning();
   }, 1000);
 }
 
-function pauseNedtelling() {
+function pausePomodoro() {
   clearInterval(interval);
   interval = null;
 }
 
-function resetNedtelling() {
-  pauseNedtelling();
-  tidIgjen = startTid;
+function reset() {
+  pausePomodoro();
+  modus = "arbeid";
+  tidIgjen = arbeidTid;
   oppdaterVisning();
 }
+
+oppdaterVisning();
+``
