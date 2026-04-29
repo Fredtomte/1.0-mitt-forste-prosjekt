@@ -1,5 +1,7 @@
-let arbeidTid = 25 * 60;
-let pauseTid = 5 * 60;
+const TEST_MODUS = true; // true = øving, false = reell bruk
+const varsleLyd = new Audio("ding.mp3");
+let arbeidTid = TEST_MODUS ? 1 * 60 : 25 * 60;
+let pauseTid  = TEST_MODUS ? 10      : 5 * 60;
 
 let tidIgjen = arbeidTid;
 let interval = null;
@@ -25,9 +27,13 @@ function oppdaterVisning() {
 function byttModus() {
   modus = modus === "arbeid" ? "pause" : "arbeid";
   tidIgjen = modus === "arbeid" ? arbeidTid : pauseTid;
+
+  // 🔔 Spill lyd når modus byttes
+  varsleLyd.currentTime = 0;
+  varsleLyd.play();
+
   oppdaterVisning();
 }
-
 function startPomodoro() {
   if (interval !== null) return;
 
